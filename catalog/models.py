@@ -11,6 +11,17 @@ class Genre(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.name
+    
+# Language class introducted for the challenge
+class Language(models.Model):
+    """Model representing a Language (e.g. English, French, Japanese, etc.)"""
+    name = models.CharField(max_length=200,
+                            help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+
+    def __str__(self):
+        """String for representing the Model object (in Admin site etc.)"""
+        return self.name
+
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 
 class Book(models.Model):
@@ -28,6 +39,11 @@ class Book(models.Model):
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True) # challenge
+
+    class Meta:
+        ordering = ['title', 'author']
 
     def __str__(self):
         """String for representing the Model object."""

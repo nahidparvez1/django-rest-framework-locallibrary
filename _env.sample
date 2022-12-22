@@ -1,0 +1,7 @@
+DEBUG=True
+SECRET_KEY=dSECRET_KEY from Django Settings
+DATABASE_NAME=your_database_name
+DATABASE_USER=db_username
+DATABASE_PASSWORD=password_of_your_database
+DATABASE_HOST=127.0.0.1 [usually]
+DATABASE_PORT=port_on_which_db_exposed_[optional]

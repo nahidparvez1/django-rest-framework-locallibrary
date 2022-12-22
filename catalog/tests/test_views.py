@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+# Testing Author List View. This view is connected to the model Author. so, we have to import Author model from catalog.models
 from catalog.models import Author
 
 class AuthorListViewTest(TestCase):
@@ -43,11 +44,12 @@ class AuthorListViewTest(TestCase):
         self.assertTrue(response.context['is_paginated'] == True)
         self.assertEqual(len(response.context['author_list']), 3)
 
-import datetime
 
+import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User # Required to assign User as a borrower
 
+# Testing Loaned Book Instances By User list View. So, we have to import necessary models included with the view
 from catalog.models import BookInstance, Book, Genre, Language
 
 class LoanedBookInstancesByUserListViewTest(TestCase):
@@ -166,6 +168,8 @@ class LoanedBookInstancesByUserListViewTest(TestCase):
                 self.assertTrue(last_date <= book.due_back)
                 last_date = book.due_back
 
+
+# Testing Renew Book Instances View. Importing necessary packages
 
 import uuid
 

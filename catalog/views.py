@@ -34,6 +34,7 @@ def index(request):
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
+# BookListView
 class BookListView(generic.ListView):
     model =  Book
 
@@ -54,12 +55,13 @@ class BookListView(generic.ListView):
 
     #     return context
         
-
+# BookDetailsView - Detailed view of a book will shows up
 class BookDetailView(generic.DetailView):
     model = Book
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+# LoanedBookByUserListView - basically borrowed books list by user.
 class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     """Generic class-based view listing books on loan to current user."""
     model = BookInstance
@@ -72,7 +74,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
 # Added as part of challenge!
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
-
+#LoanedBooksAllListView - all books borrowed by all users.
 class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
     """Generic class-based view listing all books on loan. Only visible to users with can_mark_returned permission."""
     model = BookInstance
@@ -84,6 +86,7 @@ class LoanedBooksAllListView(PermissionRequiredMixin, generic.ListView):
         return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 
+# Book renew segment
 import datetime
 
 from django.contrib.auth.decorators import login_required, permission_required
@@ -126,6 +129,7 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'catalog/book_renew_librarian.html', context)
 
+# Author Create, Update & Delete from URL
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 

@@ -4,6 +4,7 @@ from datetime import date
 
 # Create your models here.
 
+#Genre Model
 class Genre(models.Model):
     """Model representing a book genre."""
     name = models.CharField(max_length=200, help_text='Enter a book genre (e.g. Science Fiction)')
@@ -23,6 +24,7 @@ class Language(models.Model):
 
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 
+# Book Model
 class Book(models.Model):
     """Model representing a book (but not a specific copy of a book)."""
     title = models.CharField(max_length=200)
@@ -40,6 +42,8 @@ class Book(models.Model):
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
 
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True) # challenge
+
+    # Use metaclass objects to obtain information without having to create instances of the class
 
     class Meta:
         ordering = ['title', 'author']
@@ -61,6 +65,11 @@ class Book(models.Model):
 
 import uuid # Required for unique book instances
 
+# Think about a library, it has books, right? But book has some status, like, anybody can borrow the book, 
+# book might have go through under maintenace, it may available or reserved. So, we need a BookInstance class
+# for representing the book conditions.
+
+# BookInstance Model
 class BookInstance(models.Model):
     """Model representing a specific copy of a book (i.e. that can be borrowed from the library)."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across whole library')
@@ -68,6 +77,7 @@ class BookInstance(models.Model):
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
 
+    # A book from the library can be in any of these following condition
     LOAN_STATUS = (
         ('m', 'Maintenance'),
         ('o', 'On loan'),
@@ -79,7 +89,7 @@ class BookInstance(models.Model):
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='m',
+        default='m', #by default it will be on Maintenance status
         help_text='Book availability',
     )
 
@@ -98,6 +108,7 @@ class BookInstance(models.Model):
         """Determine if the book is overdue based on due date and current date."""
         return bool(self.due_back and date.today() > self.due_back)
 
+# Author Model
 class Author(models.Model):
     """Model representing an author."""
     first_name = models.CharField(max_length=100)
@@ -115,12 +126,3 @@ class Author(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.last_name}, {self.first_name}'
-
-
-class Student(models.Model):
-    roll = models.CharField(max_length=100)
-    sclass = models.CharField(max_length=100)
-    fname = models.CharField(max_length=100)
-    lname = models.CharField(max_length=100)
-    class Meta:
-        db_table = "students"

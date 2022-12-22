@@ -1,3 +1,5 @@
+<!-- When local server runs this page will show up at first  -->
+
 {% extends "base_generic.html" %}
 
 {% block contents %}
@@ -12,6 +14,7 @@
         <li><strong>Authors:</strong> {{ num_authors }} </li>
     </ul>
 
-    <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p>
+    <!-- cookies implementation  -->
+    <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p> 
 
-    {% endblock %}
+{% endblock %}

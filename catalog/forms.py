@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 class RenewBookForm(forms.Form):
     renew_date = forms.DateField(help_text="Enter a date between now and 4 weeks (default 3). ")
 
+    # clean functin will validate the data before POSTING to the server
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date'] # Check if a date is not in the past.
         if data < datetime.date.today():

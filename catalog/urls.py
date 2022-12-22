@@ -10,17 +10,19 @@ urlpatterns = [
 
 ]
 
+
+# Challenge tasks - borrowed book list
 urlpatterns += [
     path('mybooks/', views.LoanedBooksByUserListView.as_view(), name='my-borrowed'),
-    path(r'borrowed/', views.LoanedBooksAllListView.as_view(), name='all-borrowed'), # Challage task
+    path(r'borrowed/', views.LoanedBooksAllListView.as_view(), name='all-borrowed'), # Challenge task
 ]
 
+# Renew book url
 urlpatterns += [
     path('book/<uuid:pk>/renew', views.renew_book_librarian, name='renew-book-librarian'),
 ]
 
 # Add URLConf to create, update, and delete authors
-
 urlpatterns += [
     path('author/create/', views.AuthorCreate.as_view(), name='author-create'),
     path('author/<int:pk>/update/', views.AuthorUpdate.as_view(), name='author-update'),

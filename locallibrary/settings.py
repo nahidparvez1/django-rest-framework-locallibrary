@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-import environ
+
+# set-up environ 
+import environ # environ set-up code
 
 env = environ.Env(
     # set casting, default value
@@ -31,12 +33,12 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = env("SECRET_KEY") #this variable is taken form .env file
 
 # SECTRET_KEY = os.environ.get('DJANGO_SECTRET_KEY', 'django-insecure-h&$-=5k-cot2qb7*8p_+hv5=643^cgz%+^f4vhrxepezaiby&)')
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True #it should be True while working on local server
-DEBUG = env("DEBUG")
+DEBUG = env("DEBUG") #this variable is taken form .env file
 
 
 ALLOWED_HOSTS = ['*']
@@ -94,6 +96,10 @@ WSGI_APPLICATION = 'locallibrary.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+# All variables are taken from env file. We cannot share our database credentials here because it's running on our local server. 
+# Developer - those we'll deploy or integrate the project to their local or online server they'll will put their database credential here
+# directly or to the .env file and use the variable here, as we're using now.
 
 DATABASES = {
     'default': {

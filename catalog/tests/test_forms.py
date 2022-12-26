@@ -3,12 +3,14 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
+# Testing Renew Book Form. 
 from catalog.forms import RenewBookForm
 
+# functions name represent what is going to be tested.
 class RenewBookFormTest(TestCase):
     def test_renew_form_date_field_label(self):
         form = RenewBookForm()
-        self.assertTrue(form.fields['renewal_date'].label is None or form.fields['renewal_date'].label == 'renewal date')
+        self.assertTrue(form.fields['renewal_date'].label is None or form.fields['renewal_date'].label == 'renewal date') # comparing fields name with different values
 
     def test_renew_form_date_field_help_text(self):
         form = RenewBookForm()

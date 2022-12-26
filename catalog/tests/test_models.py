@@ -1,5 +1,6 @@
 from django.test import TestCase
 
+# Author model testing
 from catalog.models import Author
 
 class AuthorModelTest(TestCase):
@@ -15,8 +16,9 @@ class AuthorModelTest(TestCase):
 
     def test_date_of_death_label(self):
         author = Author.objects.get(id=1)
-        field_label = author._meta.get_field('date_of_death').verbose_name
-        self.assertEqual(field_label, 'Died')
+        field_label = author._meta.get_field('date_of_death').verbose_name # verbose_name is an additional information while declaring models
+        # see the model details at Author model, you might find out verbose declared 'died' there.
+        self.assertEqual(field_label, 'Died') # Test will failed because the verbose was 'died' in the model. 'Died' & 'died' are not the same. You know, why!
 
     def test_first_name_max_length(self):
         author = Author.objects.get(id=1)

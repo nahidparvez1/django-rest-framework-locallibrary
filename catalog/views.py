@@ -4,7 +4,7 @@ from django.views import generic
 
 # Create your views here.
 
-from .models import Book, Author, BookInstance, Genre
+from .models import Book, Author, BookInstance, Genre, Language
 
 def index(request):
     """View function for home page of site."""
@@ -177,14 +177,19 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('books')
     permission_required = 'catalog.can_mark_returned'
 
+class GenreList(generic.ListView):
+    model =  Genre
+
+class LanguageList(generic.ListView):
+    model =  Language
+
 
 #Rest Framework Code starts from here
 from django.contrib.auth.models import User, Group
 from catalog.models import *
 from rest_framework import viewsets
 from rest_framework import permissions
-from catalog.serializers import UserSerializer, GroupSerializer, AuthorSerializer
-
+from catalog.serializers import UserSerializer, GroupSerializer, AuthorSerializer, BookSerializer, GenreSerializer, LanguageSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -215,3 +220,27 @@ class AuthorCreateViewSet(viewsets.ModelViewSet):
 #     """Generic class-based list view for a list of authors."""
 #     model = Author
 #     paginate_by = 10
+
+class BookCreateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class GenreListViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Genre.objects.all()
+    serializer_class = GenreSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class LanguageListViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Language.objects.all()
+    serializer_class = LanguageSerializer
+    permission_classes = [permissions.IsAuthenticated]

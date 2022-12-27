@@ -27,10 +27,10 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'authors', views.AuthorCreateViewSet, basename='Author')
+router.register(r'books', views.BookCreateViewSet, basename='Book')
+router.register(r'genre', views.GenreListViewSet, basename='Genre')
+router.register(r'languages', views.LanguageListViewSet, basename= 'Language')
 # router.register(r'book instance', views.GroupViewSet)
-# router.register(r'books', views.GroupViewSet)
-# router.register(r'genre', views.GroupViewSet)
-# router.register(r'languages', views.GroupViewSet)
 
 
 # Wire up our API using automatic URL routing.

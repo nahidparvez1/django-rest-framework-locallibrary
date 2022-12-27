@@ -180,9 +180,10 @@ class BookDelete(PermissionRequiredMixin, DeleteView):
 
 #Rest Framework Code starts from here
 from django.contrib.auth.models import User, Group
+from catalog.models import *
 from rest_framework import viewsets
 from rest_framework import permissions
-from catalog.serializers import UserSerializer, GroupSerializer
+from catalog.serializers import UserSerializer, GroupSerializer, AuthorSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -201,3 +202,16 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class AuthorCreateViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+# class AuthorListView(generic.ListView):
+#     """Generic class-based list view for a list of authors."""
+#     model = Author
+#     paginate_by = 10

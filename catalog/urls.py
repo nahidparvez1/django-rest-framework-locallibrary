@@ -1,6 +1,5 @@
 from django.urls import path, include
 from catalog import views
-# from . import views
 
 
 urlpatterns = [
